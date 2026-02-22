@@ -1,0 +1,9 @@
+Operation              Command   
+    
+Start of file         - `gg`          
+End of file           - `G`           
+Start of line         - `0`           
+End of line           - `$`           
+Append at end of line - `A`           
+Delete line           - `dd`          
+Duplicate line        - `yy` then `p` 
