@@ -1,0 +1,80 @@
+body {
+  margin: 0;
+  height: 100vh;
+  background: linear-gradient(135deg, #4e73df, #1cc88a);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.glass {
+  backdrop-filter: blur(20px);
+  background: rgba(255,255,255,0.15);
+  padding: 40px;
+  border-radius: 20px;
+  width: 450px;
+  color: white;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+}
+
+input {
+  width: 70%;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  display: flex;
+  justify-content: center;
+}
+
+button {
+  padding: 10px 15px;
+  border-radius: 10px;
+  border: none;
+  background: #ff6b6b;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+}
+
+button:hover {
+  background: #e74a3b;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+li {
+  background: rgba(255,255,255,0.2);
+  padding: 10px;
+  margin-top: 8px;
+  border-radius: 8px;
+}
+
+.button-row {
+  display: flex;
+  gap: 15px;
+  margin-top: 15px;
+  justify-content: flex-start;
+}
+
+.button-row button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 10px;
+  background-color: #ff6b6b;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.button-row button:hover {
+  transform: scale(1.15);
+}
