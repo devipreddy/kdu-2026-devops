@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="EN">
+<head>
+  <title>Devi Serverless Board</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="glass">
+    <h1> Serverless Message Board</h1>
+
+    <div class="input-group">
+      <input type="text" id="messageInput" placeholder="Share something inspiring..." />
+    </div>
+
+    <div class="button-row">
+        <button onclick="submitMessage()">Send</button>
+        <button class="refresh" onclick="loadMessages()">Refresh</button>
+    </div>
+
+    <ul id="messages"></ul>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
