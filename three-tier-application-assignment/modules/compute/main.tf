@@ -161,7 +161,7 @@ resource "aws_autoscaling_policy" "scale_out" {
   autoscaling_group_name = aws_autoscaling_group.app.name
   adjustment_type        = "ChangeInCapacity"
   scaling_adjustment     = 1
-  cooldown               = 20 //300
+  cooldown               = 300
 }
 
 resource "aws_autoscaling_policy" "scale_in" {
@@ -169,18 +169,18 @@ resource "aws_autoscaling_policy" "scale_in" {
   autoscaling_group_name = aws_autoscaling_group.app.name
   adjustment_type        = "ChangeInCapacity"
   scaling_adjustment     = -1
-  cooldown               = 20 //300
+  cooldown               = 300
 }
 
 resource "aws_cloudwatch_metric_alarm" "cpu_high" {
   alarm_name          = "${local.name_prefix}-cpu-high"
   comparison_operator = "GreaterThanOrEqualToThreshold"
-  evaluation_periods  = 1 //2
+  evaluation_periods  = 2
   metric_name         = "CPUUtilization"
   namespace           = "AWS/EC2"
-  period              = 20 //120
+  period              = 120
   statistic           = "Average"
-  threshold           = 5 //60
+  threshold           = 60
 
   dimensions = {
     AutoScalingGroupName = aws_autoscaling_group.app.name
@@ -192,12 +192,12 @@ resource "aws_cloudwatch_metric_alarm" "cpu_high" {
 resource "aws_cloudwatch_metric_alarm" "cpu_low" {
   alarm_name          = "${local.name_prefix}-cpu-low"
   comparison_operator = "LessThanOrEqualToThreshold"
-  evaluation_periods  =  1 //4
+  evaluation_periods  =  4
   metric_name         = "CPUUtilization"
   namespace           = "AWS/EC2"
-  period              = 20 //120
+  period              = 120
   statistic           = "Average"
-  threshold           = 2 //20
+  threshold           = 20
 
   dimensions = {
     AutoScalingGroupName = aws_autoscaling_group.app.name
