@@ -1,0 +1,31 @@
+version: "3.9"
+
+services:
+
+  backend2:
+    image: deviprasadreddyp/kdu-backend2:v1
+    restart: always
+    environment:
+      SPRING_DATASOURCE_USERNAME: ${db_username}
+      SPRING_DATASOURCE_PASSWORD: ${db_password}
+      SPRING_DATASOURCE_URL: jdbc:mysql://${rds_endpoint}:3306/currency?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
+
+  backend1:
+    image: deviprasadreddyp/kdu-backend1:v1
+    restart: always
+    depends_on:
+      - backend2
+    environment:
+      SPRING_DATASOURCE_USERNAME: ${db_username}
+      SPRING_DATASOURCE_PASSWORD: ${db_password}
+      SPRING_DATASOURCE_URL: jdbc:mysql://${rds_endpoint}:3306/currency?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
+      FEIGN_CLIENT_NAME: backend2
+      FEIGN_CLIENT_URL: http://backend2:8081
+
+  frontend:
+    image: deviprasadreddyp/kdu-frontend:v3
+    restart: always
+    depends_on:
+      - backend1
+    ports:
+      - "80:80"
