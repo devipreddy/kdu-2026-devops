@@ -1,0 +1,64 @@
+version: "3.9"
+
+services:
+
+  mysql:
+    image: mysql:8
+    container_name: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: currency
+      MYSQL_USER: devuser
+      MYSQL_PASSWORD: devpass
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - currency-network
+
+  backend2:
+    image: deviprasadreddyp/kdu-backend2:v1
+    container_name: backend2
+    restart: always
+    depends_on:
+      - mysql
+    environment:
+      SPRING_DATASOURCE_USERNAME: devuser
+      SPRING_DATASOURCE_PASSWORD: devpass
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/currency?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
+    networks:
+      - currency-network
+
+  backend1:
+    image: deviprasadreddyp/kdu-backend1:v1
+    container_name: backend1
+    restart: always
+    depends_on:
+      - mysql
+      - backend2
+    environment:
+      SPRING_DATASOURCE_USERNAME: devuser
+      SPRING_DATASOURCE_PASSWORD: devpass
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/currency?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
+      FEIGN_CLIENT_NAME: backend2
+      FEIGN_CLIENT_URL: http://backend2:8081
+    networks:
+      - currency-network
+
+  frontend:
+    image: deviprasadreddyp/kdu-frontend:v3
+    container_name: frontend
+    restart: always
+    depends_on:
+      - backend1
+    ports:
+      - "80:80"
+    networks:
+      - currency-network
+
+volumes:
+  mysql_data:
+
+networks:
+  currency-network:
+    driver: bridge
