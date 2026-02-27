@@ -1,6 +1,4 @@
-############################################
-# IAM Module
-############################################
+
 
 module "iam" {
   source       = "./modules/iam"
@@ -8,19 +6,11 @@ module "iam" {
   environment  = var.environment
 }
 
-############################################
-# S3 Module
-############################################
-
 module "s3" {
   source       = "./modules/s3"
   project_name = var.project_name
   environment  = var.environment
 }
-
-############################################
-# Elastic Beanstalk Module
-############################################
 
 module "elasticbeanstalk" {
   source                = "./modules/elasticbeanstalk"
@@ -32,9 +22,7 @@ module "elasticbeanstalk" {
   instance_profile_name = module.iam.eb_instance_profile_name
 }
 
-############################################
-# CodeBuild Module
-############################################
+
 
 module "codebuild" {
   source           = "./modules/codebuild"

@@ -1,6 +1,4 @@
-############################################
-# CodeBuild Project
-############################################
+
 
 resource "aws_codebuild_project" "build" {
   name          = "${var.project_name}-${var.environment}-build"
@@ -8,9 +6,7 @@ resource "aws_codebuild_project" "build" {
   service_role  = var.service_role_arn
   build_timeout = 30
 
-  ##########################################
-  # Artifacts
-  ##########################################
+
 
   artifacts {
     type      = "S3"
@@ -19,10 +15,6 @@ resource "aws_codebuild_project" "build" {
     path      = var.environment
     name      = "${var.project_name}.zip"
   }
-
-  ##########################################
-  # Environment
-  ##########################################
 
   environment {
     compute_type                = "BUILD_GENERAL1_SMALL"
@@ -36,9 +28,6 @@ resource "aws_codebuild_project" "build" {
     }
   }
 
-  ##########################################
-  # Source (GitHub)
-  ##########################################
 
   source {
     type            = "GITHUB"
@@ -47,9 +36,7 @@ resource "aws_codebuild_project" "build" {
     buildspec       = "buildspec.yml"
   }
 
-  ##########################################
-  # GitHub Webhook (optional for testing)
-  ##########################################
+
 
   source_version = var.branch_name
 

@@ -1,6 +1,4 @@
-############################################
-# CodeBuild Role
-############################################
+
 
 resource "aws_iam_role" "codebuild_role" {
   name = "${var.project_name}-${var.environment}-codebuild-role"
@@ -20,10 +18,6 @@ resource "aws_iam_role_policy_attachment" "codebuild_admin" {
   policy_arn = "arn:aws:iam::aws:policy/AdministratorAccess"
 }
 
-############################################
-# Elastic Beanstalk Service Role
-############################################
-
 resource "aws_iam_role" "eb_service_role" {
   name = "${var.project_name}-${var.environment}-eb-service-role"
 
@@ -42,9 +36,6 @@ resource "aws_iam_role_policy_attachment" "eb_service_policy" {
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSElasticBeanstalkService"
 }
 
-############################################
-# Elastic Beanstalk EC2 Role
-############################################
 
 resource "aws_iam_role" "eb_ec2_role" {
   name = "${var.project_name}-${var.environment}-eb-ec2-role"
@@ -64,9 +55,7 @@ resource "aws_iam_role_policy_attachment" "eb_ec2_web_tier" {
   policy_arn = "arn:aws:iam::aws:policy/AWSElasticBeanstalkWebTier"
 }
 
-############################################
-# Instance Profile
-############################################
+
 
 resource "aws_iam_instance_profile" "eb_ec2_instance_profile" {
   name = "${var.project_name}-${var.environment}-eb-ec2-instance-profile"
